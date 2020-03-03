@@ -17,7 +17,7 @@ public class Hotel implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idHotel;
+	private Long idHotel;
 	
 	@Column(name = "cnpj", nullable = false)
 	private String cnpj;
@@ -36,11 +36,11 @@ public class Hotel implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdHotel() {
+	public Long getIdHotel() {
 		return idHotel;
 	}
 
-	public void setIdHotel(int idHotel) {
+	public void setIdHotel(Long idHotel) {
 		this.idHotel = idHotel;
 	}
 
