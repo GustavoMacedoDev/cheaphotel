@@ -11,7 +11,7 @@ public class HotelController {
 
 	@GetMapping(value = "/{nome}")
 	public String exemplo(@PathVariable("nome") String nome) {
-		return "Olá" + nome;
+		return "Oi Meu Chapa" + nome;
 	}
 	
 }
