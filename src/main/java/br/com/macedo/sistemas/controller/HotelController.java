@@ -3,34 +3,48 @@ package br.com.macedo.sistemas.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.macedo.sistemas.entities.Hotel;
 import br.com.macedo.sistemas.repository.HotelRepository;
+import br.com.macedo.sistemas.responses.ResponseModel;
 
+@CrossOrigin(origins  = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/hotel")
+@RequestMapping("/service")
 public class HotelController {
 	
 	@Autowired
 	private HotelRepository hotelRepository;
 
 	
-	@GetMapping("/")
-	public List<Hotel> buscaHoteis() {
+	//busca os hoteis cadastrados
+	@RequestMapping(value="/hotel", method = RequestMethod.GET)
+	public @ResponseBody List<Hotel> getHoteis() {
 		
-		return hotelRepository.findAll();
+		return this.hotelRepository.findAll();
 		
 	}
 	
-	@GetMapping(value = "/{nome}")
-	public String exemplo(@PathVariable("nome") String nome) {
-		return "Oi Meu Chapa" + nome;
+	@RequestMapping(value="/hotel", method = RequestMethod.POST)
+	public @ResponseBody ResponseModel salvar(@RequestBody Hotel hotel){
+
+		try {
+			
+			this.hotelRepository.save(hotel);
+			
+			return new ResponseModel(1,"Registro salvo com sucesso!");
+			
+		}catch(Exception e) {
+			
+			return new ResponseModel(0,e.getMessage());			
+		}
 	}
-	
 	
 	
 }
